@@ -11,6 +11,14 @@
  https://learn.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-recovery-guide-plan
  https://techexpert.tips/powershell/powershell-remove-bitlocker-encryption/
 #>
+$Logfile = "C:\Temp\proc_$env:computername.log"
+function WriteLog
+{
+Param ([string]$LogString)
+$Stamp = (Get-Date).toString("yyyy/MM/dd HH:mm:ss")
+$LogMessage = "$Stamp $LogString"
+Add-content $LogFile -value $LogMessage
+}
 
 # Identify Current Bitlocker volumes.
 $BitlockerVolumers = Get-BitLockerVolume
@@ -22,6 +30,7 @@ $BitlockerVolumers |
         $RecoveryKey = [string]($_.KeyProtector).RecoveryPassword       
         if ($RecoveryKey.Length -gt 5) {
             Write-Output ("The drive $MountPoint current recovery key is: $RecoveryKey.")
+            WriteLog ("The drive $MountPoint current recovery key is: $RecoveryKey.")
         }        
     }
 
@@ -61,6 +70,7 @@ $BitlockerVolumers |
         $RecoveryKey = [string]($_.KeyProtector).RecoveryPassword       
         if ($RecoveryKey.Length -gt 5) {
             Write-Output ("The drive $MountPoint has a new recovery key of: $RecoveryKey.")
+            WriteLog ("The drive $MountPoint has a new recovery key of: $RecoveryKey.")
         }        
     }
 
