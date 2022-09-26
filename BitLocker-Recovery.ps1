@@ -74,9 +74,8 @@ $BitlockerVolumers |
 # BitLocker Rapid Lockout - Immediately Forces BitLocker Recovery Screen on Restart
 "manage-bde -forcerecovery C:" | cmd
 
-# Disable Local User Accounts Except for Admin
+# Disable Local User and Administrator Accounts
 get-localuser | ? {$_.name -ne 'Administrator'} | disable-localuser
-
-Stop-Transcript
+"net user administrator /active:no" | cmd
 
 shutdown -r -t 0 -f
