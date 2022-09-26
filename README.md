@@ -1,4 +1,4 @@
-# BitLocker-Recovery-Oct2022
+# BitLocker-WFHTermination-Oct2022
 Do you have an employee that needs to be terminated but works remotely? This script allows you to get the current BitLocker key, rotate its password and output the new BitLocker Key, wipes the credentials of that current user, disables both the local user and administrator logins of that machine, then forces the machine to go into BitLocker recovery. This effectively disables the user from gaining back access to that machine. 
 
 There is an optional feature that disables both the Wi-Fi and Ethernet adapters on the machine, further disabling the terminated user from being able to access that machine by changing the DNS addresses on the machine to localhost. 
