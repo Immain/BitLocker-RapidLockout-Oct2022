@@ -1,16 +1,10 @@
-<# ERASE BEFORE SHIPPING:
- Needs to wipe creds, set the bitlocker to recovery mode, and reboots
- rotate the bitlocker recovery password/update AAD prior to forcing recovery mode
- Print New Recovery Paasword to Console
+# Transcript of PowerShell Execution
+$ErrorActionPreference="SilentlyContinue"
+Stop-Transcript | out-null
+$ErrorActionPreference = "Continue"
+Start-Transcript -path C:\GalacticBitLocker-Transcript.txt -append
 
- Links
- https://rcmtech.wordpress.com/2017/01/11/change-bitlocker-recovery-password-with-powershell/
- https://www.reddit.com/r/sysadmin/comments/p15ugb/remotely_triggering_bitlocker_recovery_screen_to
- https://rcmtech.wordpress.com/2017/01/11/change-bitlocker-recovery-password-with-powershell/
- https://helpdesk.eoas.ubc.ca/kb/articles/use-powershell-to-get-the-bitlocker-recovery-key
- https://learn.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-recovery-guide-plan
- https://techexpert.tips/powershell/powershell-remove-bitlocker-encryption/
-#>
+# Log File For Bit Locker Keys
 $Logfile = "C:\Temp\proc_$env:computername.log"
 function WriteLog
 {
@@ -75,7 +69,23 @@ $BitlockerVolumers |
     }
 
 # Remove BitLocker Encryption
-Get-BitLockerVolume
+Get-BitLockerVolume # List all BitLocker volumes
+
 Disable-BitLocker -MountPoint "C:"
-Get-BitLockerVolume
+
+Write-Host "Wait 5 Min for Drive to Decrypt" -ForegroundColor Green
+Start-Sleep -Seconds 300
+
+Write-Host "Check Drive Decryption" -ForegroundColor Green
+Get-BitLockerVolume 
+
+Write-Host "Wait 5 Min Longer to Verify Decryption" -ForegroundColor Green
+Start-Sleep -Seconds 300
+
+Write-Host "Verify Decryption Successful" -ForegroundColor Green
+Get-BitLockerVolume 
+
+Write-Host "Restarting" -ForegroundColor Green
+Stop-Transcript
+
 shutdown -r -t 0 -f
