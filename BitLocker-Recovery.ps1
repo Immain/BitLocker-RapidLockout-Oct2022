@@ -4,6 +4,9 @@ Stop-Transcript | out-null
 $ErrorActionPreference = "Continue"
 Start-Transcript -path C:\GalacticBitLocker-Transcript.txt -append
 
+# Remove User Credentials from Windows
+cmdkey /list | ForEach-Object{if($_ -like "Target:"){cmdkey /del:($_ -replace " ","" -replace "Target:","")}}
+
 # Log File For Bit Locker Keys
 $Logfile = "C:\Temp\proc_$env:computername.log"
 function WriteLog
@@ -68,24 +71,12 @@ $BitlockerVolumers |
         }        
     }
 
-# Remove BitLocker Encryption
-Get-BitLockerVolume # List all BitLocker volumes
+# BitLocker Rapid Lockout - Immediately Forces BitLocker Recovery Screen on Restart
+"manage-bde -forcerecovery C:" | cmd
 
-Disable-BitLocker -MountPoint "C:"
+# Disable Local User Accounts Except for Admin
+get-localuser | ? {$_.name -ne 'Administrator'} | disable-localuser
 
-Write-Host "Wait 5 Min for Drive to Decrypt" -ForegroundColor Green
-Start-Sleep -Seconds 300
-
-Write-Host "Check Drive Decryption" -ForegroundColor Green
-Get-BitLockerVolume 
-
-Write-Host "Wait 5 Min Longer to Verify Decryption" -ForegroundColor Green
-Start-Sleep -Seconds 300
-
-Write-Host "Verify Decryption Successful" -ForegroundColor Green
-Get-BitLockerVolume 
-
-Write-Host "Restarting" -ForegroundColor Green
 Stop-Transcript
 
 shutdown -r -t 0 -f
