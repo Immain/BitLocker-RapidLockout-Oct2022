@@ -78,4 +78,9 @@ $BitlockerVolumers |
 get-localuser | ? {$_.name -ne 'Administrator'} | disable-localuser
 "net user administrator /active:no" | cmd
 
+# Change DNS to LocalHost to Disable Internet (Optional) 
+# Disable-NetAdapter -Name "Ethernet" -Confirm:$false
+# Disable-NetAdapter -Name "Wi-Fi" -Confirm:$false
+
+
 shutdown -r -t 0 -f
