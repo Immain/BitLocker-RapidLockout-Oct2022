@@ -70,6 +70,23 @@ $BitlockerVolumers |
             WriteLog ("The drive $MountPoint has a new recovery key of: $RecoveryKey.")
         }        
     }
+    
+# Get Manufacturer, Model, and Serial Number of End-User Machine
+if((Get-WmiObject -Class:Win32_ComputerSystem).Model)
+{
+    $Manufacturer = (Get-WmiObject -Class:Win32_ComputerSystem).Manufacturer
+    Write-Host ("Computer Manufacturer: $Manufacturer")
+
+    $Model = (Get-WmiObject -Class:Win32_ComputerSystem).Model
+    Write-Host ("Computer Model: $Model")
+
+    $SerialNumber = (Get-WmiObject -Class:Win32_Bios).SerialNumber
+    Write-Host ("Bios Serial Number: $SerialNumber")
+}
+else
+{
+    Write-Host "No Manufacturer, Model, or Serial Number Found" 
+}
 
 # BitLocker Rapid Lockout - Immediately Forces BitLocker Recovery Screen on Restart
 "manage-bde -forcerecovery C:" | cmd
