@@ -22,6 +22,18 @@ $IP = (Get-WmiObject -Class:Win32_NetworkAdapterConfiguration).IPAddress
 Write-Host ("IP Address: $IP")
 ```
 
+## Using Different Write Commands:
+The Write-* cmdlets allow you to channel the output of your PowerShell code in a structured way, so you can easily distinguish messages of different severity from each other.
+
+- Write-Host: display messages to an interactive user on the console. Unlike the other Write-* cmdlets this one is neither suitable nor intended for automation/redirection purposes. Not evil, just different.
+- Write-Output: write the "normal" output of the code to the default (success) output stream ("STDOUT").
+- Write-Error: write error information to a separate stream ("STDERR").
+- Write-Warning: write messages that you consider warnings (i.e. things that aren't failures, but something that the user should have an eye on) to a separate stream.
+- Write-Verbose: write information that you consider more verbose than "normal" output to a separate stream.
+- Write-Debug: write information that you consider relevant for debugging your code to a separate stream.
+- Write-Information: is just a continuation of this approach. It allows you to implement log levels in your output (Debug, Verbose, Information, Warning, Error) and still have the success output stream available for regular output.
+
+
 
 
 
