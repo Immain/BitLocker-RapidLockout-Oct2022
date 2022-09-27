@@ -1,6 +1,18 @@
 # BitLocker-RapidLockout-Oct2022
 Do you have an employee that needs to be terminated but works remotely? This script allows you to get the current BitLocker key, rotate the key to a new one and outputs the new BitLocker Key in console and adds it to Active Directory, wipes the credentials of that current user, disables both the local user and administrator logins of that machine, then forces the machine to go into BitLocker recovery. This effectively disables the user from gaining back access to that machine. 
 
+## Features:
+- Removes All Credentials from Windows Credential Manager
+- Pulls Original BitLocker Recovery Key
+- Indentifies Current BitLocker Volumes
+- Rotates the BitLocker Recovery Key
+- Outputs New BitLocker Recovery Key
+- Grabs the Manufacturer, Model, and BIOS Serial Numbers
+- Disables the Local User and Admin Accounts of the Remote User
+- Forces BitLocker Recovery of the Remote Users Machine
+- Changes the DNS Addresses of the Remote Users Machine to Localhost disabling the Internet
+- Restarts into BitLocker Recovery Mode
+
 ## Note:
 For this script to work properly, BitLocker **MUST** be enabled on the end-user's machine. 
 
@@ -32,10 +44,6 @@ The Write-* cmdlets allow you to channel the output of your PowerShell code in a
 - ```Write-Verbose:``` write information that you consider more verbose than "normal" output to a separate stream.
 - ```Write-Debug:``` write information that you consider relevant for debugging your code to a separate stream.
 - ```Write-Information:``` is just a continuation of this approach. It allows you to implement log levels in your output (Debug, Verbose, Information, Warning, Error) and still have the success output stream available for regular output.
-
-
-
-
 
 ## Reference Links:
 - https://rcmtech.wordpress.com/2017/01/11/change-bitlocker-recovery-password-with-powershell/
