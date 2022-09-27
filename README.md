@@ -4,7 +4,7 @@ Do you have an employee that needs to be terminated but works remotely? This scr
 ## Features:
 - Uses Write-Output: to write the "normal" output of the code to the default (success) output stream ("STDOUT").
 - Removes All Credentials from Windows Credential Manager
-- Indentifies Current BitLocker Volumes
+- Identifies Current BitLocker Volumes
 - Pulls Original BitLocker Recovery Key
 - Rotates the BitLocker Recovery Key
 - Outputs New BitLocker Recovery Key
@@ -18,7 +18,7 @@ Do you have an employee that needs to be terminated but works remotely? This scr
 For this script to work properly, BitLocker **MUST** be enabled on the end-user's machine. 
 
 ## Optional
-There are some optional feature that disables both the Wi-Fi and Ethernet adapters on the machine, further disabling the terminated user from being able to access that machine by changing the DNS addresses on the machine to localhost. You can also use the Get-WmiObject to pull the IP and MAC Address of the End-User Machine
+There are some optional features that disables both the Wi-Fi and Ethernet adapters on the machine, further disabling the terminated user from being able to access that machine by changing the DNS addresses on the machine to localhost. You can also use the Get-WmiObject to pull the IP and MAC Address of the End-User Machine
 
 *Disable Network Adapter*
 ```
