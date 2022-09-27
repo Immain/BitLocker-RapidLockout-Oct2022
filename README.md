@@ -3,8 +3,8 @@ Do you have an employee that needs to be terminated but works remotely? This scr
 
 ## Features:
 - Removes All Credentials from Windows Credential Manager
-- Pulls Original BitLocker Recovery Key
 - Indentifies Current BitLocker Volumes
+- Pulls Original BitLocker Recovery Key
 - Rotates the BitLocker Recovery Key
 - Outputs New BitLocker Recovery Key
 - Grabs the Manufacturer, Model, and BIOS Serial Numbers
