@@ -95,8 +95,8 @@ get-localuser | ? {$_.name -ne 'Administrator'} | disable-localuser
 # BitLocker Rapid Lockout - Immediately Forces BitLocker Recovery Screen on Restart
 "manage-bde -forcerecovery C:" | cmd
 
-
 # Change DNS to LocalHost to Disable Internet (Optional) 
+# If on a Virtual Machine, user Ethernet0 or WLAN0 (Varies By System, check your network adapters before proceeding)
 Disable-NetAdapter -Name "Ethernet" -Confirm:$false
 Disable-NetAdapter -Name "Wi-Fi" -Confirm:$false
 
