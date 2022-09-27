@@ -70,7 +70,7 @@ $BitlockerVolumers |
             WriteLog ("The drive $MountPoint has a new recovery key of: $RecoveryKey.")
         }        
     }
-    
+
 # Get Manufacturer, Model, and Serial Number of End-User Machine
 if((Get-WmiObject -Class:Win32_ComputerSystem).Model)
 {
@@ -88,16 +88,18 @@ else
     Write-Host "No Manufacturer, Model, or Serial Number Found" 
 }
 
-# BitLocker Rapid Lockout - Immediately Forces BitLocker Recovery Screen on Restart
-"manage-bde -forcerecovery C:" | cmd
-
 # Disable Local User and Administrator Accounts
 get-localuser | ? {$_.name -ne 'Administrator'} | disable-localuser
 "net user administrator /active:no" | cmd
 
+# BitLocker Rapid Lockout - Immediately Forces BitLocker Recovery Screen on Restart
+"manage-bde -forcerecovery C:" | cmd
+
+
 # Change DNS to LocalHost to Disable Internet (Optional) 
-# Disable-NetAdapter -Name "Ethernet" -Confirm:$false
-# Disable-NetAdapter -Name "Wi-Fi" -Confirm:$false
+Disable-NetAdapter -Name "Ethernet" -Confirm:$false
+Disable-NetAdapter -Name "Wi-Fi" -Confirm:$false
 
-
+Stop-Transcript
+# Immediate Restart 0 timeout
 shutdown -r -t 0 -f
