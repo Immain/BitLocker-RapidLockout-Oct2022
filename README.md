@@ -1,4 +1,4 @@
-# BitLocker-WFHTermination-Oct2022
+# BitLocker-RapidLockout-Oct2022
 Do you have an employee that needs to be terminated but works remotely? This script allows you to get the current BitLocker key, rotate the key to a new one and outputs the new BitLocker Key in console and adds it to Active Directory, wipes the credentials of that current user, disables both the local user and administrator logins of that machine, then forces the machine to go into BitLocker recovery. This effectively disables the user from gaining back access to that machine. 
 
 ## Note:
