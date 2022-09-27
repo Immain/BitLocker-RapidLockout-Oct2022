@@ -1,3 +1,15 @@
+<# 
+ While Galactic Advisors LLC make every effort to deliver high quality products,
+ we do not guarantee that our products are free from defects. Our software is provided
+ as is," and you use the software at your own risk. We make no warranties as to
+ performance, merchantability, fitness for a particular purpose, or any other warranties
+ whether expressed or implied. No oral or written communication from or information provided
+ by Galactic Advisors LLC shall create a warranty. Under no circumstances shall
+ Galactic Advisors LLC be liable for direct, indirect, special, incidental, or
+ consequential damages resulting from the use, misuse, or inability to use this software,
+ even if Galactic Advisors LLC has been advised of the possibility of such damages.
+#>
+
 # Transcript of PowerShell Execution
 $ErrorActionPreference="SilentlyContinue"
 Stop-Transcript | out-null
@@ -75,17 +87,17 @@ $BitlockerVolumers |
 if((Get-WmiObject -Class:Win32_ComputerSystem).Model)
 {
     $Manufacturer = (Get-WmiObject -Class:Win32_ComputerSystem).Manufacturer
-    Write-Host ("Computer Manufacturer: $Manufacturer")
+    Write-Output ("Computer Manufacturer: $Manufacturer")
 
     $Model = (Get-WmiObject -Class:Win32_ComputerSystem).Model
-    Write-Host ("Computer Model: $Model")
+    Write-Output ("Computer Model: $Model")
 
     $SerialNumber = (Get-WmiObject -Class:Win32_Bios).SerialNumber
-    Write-Host ("Bios Serial Number: $SerialNumber")
+    Write-Output ("Bios Serial Number: $SerialNumber")
 }
 else
 {
-    Write-Host "No Manufacturer, Model, or Serial Number Found" 
+    Write-Output "No Manufacturer, Model, or Serial Number Found" 
 }
 
 # Disable Local User and Administrator Accounts
@@ -96,10 +108,10 @@ get-localuser | ? {$_.name -ne 'Administrator'} | disable-localuser
 "manage-bde -forcerecovery C:" | cmd
 
 # Change DNS to LocalHost to Disable Internet (Optional) 
-# If on a Virtual Machine, user Ethernet0 or WLAN0 (Varies By System, check your network adapters before proceeding)
 Disable-NetAdapter -Name "Ethernet" -Confirm:$false
 Disable-NetAdapter -Name "Wi-Fi" -Confirm:$false
 
 Stop-Transcript
+
 # Immediate Restart 0 timeout
 shutdown -r -t 0 -f
