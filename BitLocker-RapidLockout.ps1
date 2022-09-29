@@ -1,15 +1,3 @@
-<# 
- While Galactic Advisors LLC make every effort to deliver high quality products,
- we do not guarantee that our products are free from defects. Our software is provided
- as is," and you use the software at your own risk. We make no warranties as to
- performance, merchantability, fitness for a particular purpose, or any other warranties
- whether expressed or implied. No oral or written communication from or information provided
- by Galactic Advisors LLC shall create a warranty. Under no circumstances shall
- Galactic Advisors LLC be liable for direct, indirect, special, incidental, or
- consequential damages resulting from the use, misuse, or inability to use this software,
- even if Galactic Advisors LLC has been advised of the possibility of such damages.
-#>
-
 # Transcript of PowerShell Execution
 $ErrorActionPreference="SilentlyContinue"
 Stop-Transcript | out-null
